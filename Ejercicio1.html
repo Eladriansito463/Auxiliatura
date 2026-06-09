@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Auxiliatura</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        hr { border: 1px solid #ccc; margin: 30px 0; }
+        .contenedor-ejercicio { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="contenedor-ejercicio">
+        <h2>Ejercicio 1</h2>
+        <p><em>(Abre la consola F12 para ver el arreglo guardado)</em></p>
+        
+        <div id="resultadoEj1"></div>
+    </div>
+
+    <hr>
+
+    <div class="contenedor-ejercicio">
+        <h2>Ejercicio 2</h2>
+        
+        <input type="text" id="inputTexto" placeholder="Ingresa un dato">
+        <button id="btnAgregar">Agregar</button>
+        
+        <ol id="listaElementos"></ol>
+    </div>
+
+    <script>
+        //EJERCICIO 1: Descomponer y sumar
+        function descomponerYSumar(numero) {
+            if (numero <= 0) return 0;
+            
+            let digitos = [];
+            let suma = 0;
+            
+            while (numero > 0) {
+                let digito = numero % 10;
+                digitos.unshift(digito);
+                suma = suma + digito;
+                numero = Math.floor(numero / 10);
+            }
+            
+            console.log("EJERCICIO 1 - Arreglo con cada dígito:", digitos);
+            return suma;
+        }
+
+        // Corriendo
+        let miNumero = 456; 
+        let resultadoSuma = descomponerYSumar(miNumero);
+
+        // Mostramos el resultado en el div del Ejercicio 1
+        let divEj1 = document.getElementById("resultadoEj1");
+        divEj1.innerHTML = "<strong>Número original:</strong> " + miNumero + "<br>" +
+                           "<strong>Suma de sus dígitos:</strong> " + resultadoSuma;
+
+        // EJERCICIO 2: Arreglos y DOM
+        let arregloDatos = [];
+        const input = document.getElementById("inputTexto");
+        const boton = document.getElementById("btnAgregar");
+        const lista = document.getElementById("listaElementos");
+
+        boton.addEventListener("click", function() {
+            if (input.value.trim() === "") return;
+
+            arregloDatos.push(input.value);
+
+            // Limpiamos 
+            lista.innerHTML = "";
+
+            // Generamos la listita
+            for (let i = 0; i < arregloDatos.length; i++) {
+                let nuevoLi = document.createElement("li");
+                nuevoLi.textContent = arregloDatos[i];
+                lista.appendChild(nuevoLi);
+            }
+
+            // Limpiamos el ingreso de datazos
+            input.value = "";
+        });
+    </script>
+
+</body>
+</html>
